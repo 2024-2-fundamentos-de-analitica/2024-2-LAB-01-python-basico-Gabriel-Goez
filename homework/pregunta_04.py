@@ -5,7 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
+PATH = 'files/input/data.csv'
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la
@@ -26,3 +26,20 @@ def pregunta_04():
      ('12', 3)]
 
     """
+
+    with open(PATH) as archivo: 
+        contenido = archivo.read().splitlines()
+
+    ocurrencia_mes = {}
+
+    for linea in contenido:
+        if linea.strip():
+            fecha_str = linea.split('\t')[2]
+            fecha_str = fecha_str.split('-')
+            mes   = fecha_str[1]
+            ocurrencia_mes[mes] = ocurrencia_mes.get(mes, 0) + 1
+
+    return sorted(ocurrencia_mes.items()) 
+
+print(pregunta_04())
+

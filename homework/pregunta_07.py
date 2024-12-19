@@ -4,7 +4,20 @@ datos requeridos se encuentran en el archivo data.csv. En este laboratorio
 solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
+PATH = 'files/input/data.csv'
+def __depurar_linea(path):
+    
+    with open(path) as archivo:
+        contenido = archivo.read().splitlines()
+    
+    linea_depurada = []
+    for linea in contenido:
+        if linea.strip():
+            linea = linea.split('\t')
 
+            linea_depurada.append(linea)
+
+    return linea_depurada
 
 def pregunta_07():
     """
@@ -25,3 +38,18 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+
+    contenido = __depurar_linea(PATH)
+
+    repeticiones = {}
+    for linea in contenido:
+        valor = int(linea[1])
+        if valor not in repeticiones:
+            repeticiones[valor] = [linea[0]]
+        else:
+            repeticiones.get(valor).append(linea[0])
+    return sorted(repeticiones.items())
+
+print(pregunta_07())
+
+

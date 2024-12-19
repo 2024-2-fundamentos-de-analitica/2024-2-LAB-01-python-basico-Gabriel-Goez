@@ -5,6 +5,20 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+PATH = 'files/input/data.csv'
+def __depurar_linea(path):
+    
+    with open(path) as archivo:
+        contenido = archivo.read().splitlines()
+    
+    linea_depurada = []
+    for linea in contenido:
+        if linea.strip():
+            linea = linea.split('\t')
+
+            linea_depurada.append(linea)
+
+    return linea_depurada
 
 def pregunta_09():
     """
@@ -24,3 +38,16 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+    contenido = __depurar_linea(PATH)
+    repeticiones = {}
+    for linea in contenido:
+        clave_valor = linea[4].split(",")
+        for asociacion in clave_valor:
+            asociacion = asociacion.split(':')
+            repeticiones[asociacion[0]] = repeticiones.get(asociacion[0], 0) + 1
+    
+    #return dict(sorted(repeticiones.items()))
+    return dict(sorted(repeticiones.items()))
+
+
+print(pregunta_09())
